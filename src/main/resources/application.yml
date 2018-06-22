@@ -1,0 +1,23 @@
+spring:
+  rabbitmq:
+#   host: 120.78.222.34
+   addresses: 120.78.222.34:5672,47.106.95.183:5672
+   username: admin
+   password: 123456
+   #消息回调设置
+   publisher-confirms: true
+   publisher-returns: true
+   listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+          max-attempts: 5
+        prefetch: 1
+   cache:
+     channel:
+       size: 30
+#        concurrency: 20
+
+server:
+  port: 8080
