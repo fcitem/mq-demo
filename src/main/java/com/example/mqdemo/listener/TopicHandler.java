@@ -19,18 +19,19 @@ public class TopicHandler {
 
     @Autowired
     RabbitTemplate rabbitTemplate;
-    @RabbitListener(queues = TopicConfig.TOPICQUEUE,concurrency = "10")
+    @RabbitListener(queues = TopicConfig.TOPICQUEUE,containerFactory = "topicContainerFactory")
     public void handler(Message message, Channel channel) throws IOException, InterruptedException {
 
-        System.out.println("收到主题消息============="+new String(message.getBody()));
+        System.out.println();
+        System.out.println("收到主题消息============="+channel.getConnection().getAddress()+":"+new String(message.getBody()));
 //        Thread.sleep(3000);
         System.out.println(Thread.currentThread().getName()+"="+new String(message.getBody())+"完成");
         /*GetResponse response=channel.basicGet(TopicConfig.TOPICQUEUE,false);
         response.getMessageCount();*/
-        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
+//        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
-        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
-        channel.basicReject(message.getMessageProperties().getDeliveryTag(),true);
-        channel.basicCancel(message.getMessageProperties().getConsumerTag());
+//        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
+//        channel.basicReject(message.getMessageProperties().getDeliveryTag(),true);
+//        channel.basicCancel(message.getMessageProperties().getConsumerTag());
     }
 }

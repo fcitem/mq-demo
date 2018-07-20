@@ -41,11 +41,11 @@ public class Sender {
         Message message =new Message(String.valueOf(count).getBytes(),messageProperties);
         message.getMessageProperties();
         count.addAndGet(1);
-        rabbitTemplate.invoke(operations -> {
+        /*rabbitTemplate.invoke(operations -> {
             operations.convertAndSend(DirectConfig.DIRECTEXCHANGE,"b",message,new CorrelationData(String.valueOf(count)));
             operations.waitForConfirms(10000);
             return false;
-        });
+        });*/
         rabbitTemplate.convertAndSend(DirectConfig.DIRECTEXCHANGE,"b",message,new CorrelationData(String.valueOf(count)));
         return "success";
     }

@@ -1,7 +1,7 @@
 spring:
   rabbitmq:
 #   host: 120.78.222.34
-   addresses: 120.78.222.34:5672,47.106.95.183:5672
+   addresses: 120.78.222.34:5670
    username: admin
    password: 123456
    #消息回调设置

@@ -15,7 +15,7 @@ import java.io.IOException;
 @Component
 public class FanoutHandler {
 
-    @RabbitListener(queues = FanoutConfig.FANOUTQUEUE,concurrency = "10")
+    @RabbitListener(queues = FanoutConfig.FANOUTQUEUE)
     public void handler(Message message, Channel channel) throws IOException {
 
         System.out.println("收到广播消息============="+new String(message.getBody()));
